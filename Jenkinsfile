@@ -1,6 +1,7 @@
 node{
-    project_post_fix = ~/\/.*$/
-    project_name = env.JOB_NAME - project_post_fix
+    sh "project_name=${JOB_NAME%/*}"
+    sh 'echo ${project_name} > name_file'
+    project_name = ReadFile('result')
 
     syslist = ["daint", "dom", "kesch", "leone", "monch"]
 
