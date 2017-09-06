@@ -1,8 +1,8 @@
 pipeline {
     agent any 
 
-    environment{
-        gitCommit =  env.CHANGE_TITLE
+    stage("Init_Variables"{
+        def gitCommit =  env.CHANGE_TITLE
     }
     stages {
         stage('Build') { 
