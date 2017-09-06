@@ -1,9 +1,10 @@
 node{
-    project_name = env.JOB_NAME
+    project_post_fix = ~/\/.*$/
+    project_name = env.JOB_NAME - project_post_fix
 
     syslist = ["daint", "dom", "kesch", "leone", "monch"]
 
-    println project_name
+    println "The project name is: "  + project_name
     status=0
     gitCommit =  env.CHANGE_TITLE
     echo 'Now Building....' 
