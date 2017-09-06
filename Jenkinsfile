@@ -1,7 +1,7 @@
 node{
     sh 'poject_name=${JOB_NAME%/*}'
     sh 'echo ${project_name} > name_file'
-    project_name = ReadFile('result')
+    project_name = readFile 'name_file'
 
     syslist = ["daint", "dom", "kesch", "leone", "monch"]
 
