@@ -1,6 +1,6 @@
 node{
-    sh 'project_name=${JOB_NAME%/*}'
-    sh 'echo ${project_name} > name_file'
+    sh '"project_name=${JOB_NAME%/*}"'
+    sh '"echo ${project_name} > name_file"'
     project_name = readFile 'name_file'
 
     syslist = ["daint", "dom", "kesch", "leone", "monch"]
