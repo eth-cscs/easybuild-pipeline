@@ -10,5 +10,5 @@ syslist="daint dom kesch leone monch"
 # exit status
 status=0
 
-echo ${project_name}
-
+echo 'Project Name: ' ${project_name}
+echo 'Hostname: ' ${HOST_NAME}
