@@ -11,4 +11,4 @@ syslist="daint dom kesch leone monch"
 status=0
 
 echo 'Project Name: ' ${project_name}
-echo 'Hostname: ' ${HOST_NAME}
+echo 'Hostname: ' ${HOSTNAME}
