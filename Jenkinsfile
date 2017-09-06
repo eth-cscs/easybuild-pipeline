@@ -5,7 +5,7 @@ pipeline{
         stage("Initializing"){
             steps{
                 echo "Initializing"
-                sh ci-runner.sh
+                sh "ci-runner.sh"
             }
         }
     }
