@@ -2,4 +2,13 @@
 
 # --- SETUP ---
 # project name (removing label appended by Jenkins at the end)
-echo "Hello from script"
+project_name=${JOB_NAME%/*}
+
+# hard-coded list of systems in project
+syslist="daint dom kesch leone monch"
+
+# exit status
+status=0
+
+echo ${project_name}
+
