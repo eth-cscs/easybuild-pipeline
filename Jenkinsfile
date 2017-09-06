@@ -1,9 +1,6 @@
-pipeline {
-    agent any 
-
-    stages {
-        stage('Build') { 
-            def gitCommit =  env.CHANGE_TITLE
+stages {
+    stage('Build') { 
+            gitCommit =  env.CHANGE_TITLE
             steps { 
                 echo 'Now Building....' 
                 //sh 'git rev-parse HEAD > result'
@@ -12,7 +9,6 @@ pipeline {
                 println gitCommit
                 //echo gitCommit
                 //ssh jenscscs@${MACH_RUNNER} "bash ${CI_FOLDER}/ci-scripts/ci-runner.bash -f ${CI_FOLDER} -i '--relax-performance-check'"
-            }
-        }
+           }
     }
 }
