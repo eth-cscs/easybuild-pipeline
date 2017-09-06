@@ -1,5 +1,5 @@
 node{
-    sh "project_name=${JOB_NAME%/*}"
+    sh 'poject_name=${JOB_NAME%/*}'
     sh 'echo ${project_name} > name_file'
     project_name = ReadFile('result')
 
