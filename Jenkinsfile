@@ -7,10 +7,10 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
-                sh /export COMMIT="git rev-parse --short HEAD"/
-                sh /echo $COMMIT/
-                echo /Connecting to $MACH_RUNNER/
-                sh 'ssh jenscscs@$MACH_RUNNER "pwd"'      
+                sh "export COMMIT=\"git rev-parse --short HEAD\""
+                sh "echo $COMMIT"
+                echo "Connecting to $MACH_RUNNER"
+                sh "ssh jenscscs@$MACH_RUNNER \"pwd\""      
             }
               
             post{
