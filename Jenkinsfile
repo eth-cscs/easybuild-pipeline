@@ -10,7 +10,7 @@ pipeline{
                 sh "whoami"
                 sh "env"
                 sh "export COMMIT=`git rev-parse --short HEAD`"
-                sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
+                sh "ssh jencscs@${MACH_RUNNER}"    
             }
               
             post{
