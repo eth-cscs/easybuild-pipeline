@@ -5,7 +5,7 @@ pipeline{
         stage("Initializing"){
             steps{
                 echo "Connecting to dom"
-                sh 'ssh "jenscscs@dom; env"'
+                sh 'ssh "jenscscs@daint" "env"'
             }
         }
     }
