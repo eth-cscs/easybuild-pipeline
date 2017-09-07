@@ -8,7 +8,7 @@ pipeline{
             }
             steps{
                 echo "Connecting to $MACH_RUNNER"
-                sh 'ssh "jenscscs@$MACH_RUNNER" "echo $HOSTNAME"'
+                sh 'ssh jenscscs@$MACH_RUNNER "echo $HOSTNAME"'
             }
         }
         
@@ -18,7 +18,7 @@ pipeline{
             }
             steps{
                 echo "Connecting to $MACH_RUNNER"
-                sh 'ssh "jenscscs@$MACH_RUNNER" "echo $HOSTNAME"'
+                sh 'ssh jenscscs@$MACH_RUNNER "echo $HOSTNAME"'
             }
         }
     }
