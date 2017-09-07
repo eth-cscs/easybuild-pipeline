@@ -7,21 +7,18 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
-                sh 'export COMMIT="git rev-parse --short HEAD"'
-                sh 'printenv'
-                echo 'Connecting to ${MACH_RUNNER}'
-                sh 'ssh jenscscs@${MACH_RUNNER} "pwd"'    
+                sh "ssh jenscscs@${MACH_RUNNER} pwd"    
             }
               
             post{
                 always{
-                    echo 'Finished pipeline on ${MACH_RUNNER}'
+                    echo "Finished pipeline on ${MACH_RUNNER}"
                 }
                 success{
-                    echo 'Pipeline successfull on ${MACH_RUNNER}'
+                    echo "Pipeline successfull on ${MACH_RUNNER}"
                 }
                 failure{
-                    echo 'Pipeline failed on ${MACH_RUNNER}'
+                    echo "Pipeline failed on ${MACH_RUNNER}"
                 }        
             }
         }
@@ -31,14 +28,14 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                echo 'Connecting to ${MACH_RUNNER}'
-                sh 'ssh jenscscs@${MACH_RUNNER} "pwd"'
+                echo "Connecting to ${MACH_RUNNER}"
+                sh "ssh jenscscs@${MACH_RUNNER} pwd"
             }
         }
     }
     post { 
         always { 
-            echo 'Finish execution of pipeline'
+            echo "Finish execution of pipeline"
         }
     }
 }
