@@ -8,7 +8,7 @@ pipeline{
             }
             steps{
                 sh 'export COMMIT="git rev-parse --short HEAD"'
-                echo '$COMMIT'
+                sh 'echo $COMMIT'
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER "pwd"'      
             }
