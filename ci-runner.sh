@@ -2,7 +2,7 @@
 
 # --- SETUP ---
 # project name (removing label appended by Jenkins at the end)
-project_name=${JOB_NAME%/*}
+# project_name=${JOB_NAME%/*}
 
 # hard-coded list of systems in project
 syslist="daint dom kesch leone monch"
