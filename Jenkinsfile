@@ -10,18 +10,19 @@ pipeline{
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER "pwd"'
             }
-        }
         
-        post{
-             always{
-                echo "Finished pipeline on dom"
+        
+            post{
+                always{
+                    echo "Finished pipeline on dom"
+                }
+                success{
+                    echo "Pipeline successfull on dom"
+                }
+                failure{
+                 echo "Pipeline failed on dom"
+                }        
             }
-            success{
-                echo "Pipeline successfull on dom"
-            }
-            failure{
-                echo "Pipeline failed on dom"
-            }        
         }
         
         stage("Pipeline on daint"){
