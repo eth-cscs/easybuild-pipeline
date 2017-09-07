@@ -7,12 +7,11 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
-                echo "Connecting to $MACH_RUNNER"
-                sh 'ssh jenscscs@$MACH_RUNNER' 
                 sh 'pwd'
+                echo "Connecting to $MACH_RUNNER"
+                sh 'ssh jenscscs@$MACH_RUNNER'        
             }
-        
-        
+              
             post{
                 always{
                     echo "Finished pipeline on $MACH_RUNNER"
@@ -31,9 +30,9 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
+                sh 'pwd'
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER'
-                sh 'pwd'
             }
         }
     }
