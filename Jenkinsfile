@@ -7,6 +7,7 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
+                sh "whoami"
                 sh "ssh jenscscs@${MACH_RUNNER}"    
             }
               
