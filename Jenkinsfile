@@ -9,7 +9,7 @@ pipeline{
             steps{
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER' 
-                pwd
+                sh 'pwd'
             }
         
         
@@ -33,7 +33,7 @@ pipeline{
             steps{
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER'
-                pwd
+                sh 'pwd'
             }
         }
     }
