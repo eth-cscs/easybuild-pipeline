@@ -10,7 +10,7 @@ pipeline{
                 sh "whoami"
                 sh "env"
                 sh "export COMMIT=`git rev-parse --short HEAD`"
-                sh "bash ci-runner.sh"
+                echo "${COMMIT}"
                 sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
             }
               
