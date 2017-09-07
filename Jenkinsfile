@@ -4,13 +4,13 @@ pipeline{
     stages{
         stage("Pipeline on daint"){
             environment{
-                MACH_RUNNER = "daint.cscs.ch"
+                MACH_RUNNER = "daint"
             }
             steps{
                 sh "whoami"
                 sh "env"
                 sh "export COMMIT=`git rev-parse --short HEAD`"
-                sh "ssh jencscs@${MACH_RUNNER}"    
+                sh "ssh -tt jencscs@${MACH_RUNNER}"    
             }
               
             post{
