@@ -2,10 +2,13 @@ pipeline{
     agent any
     
     stages{
-        stage("Initializing"){
+        stage("Pipeline on dom"){
+            environment{
+                MACH_RUNNER = "dom"
+            }
             steps{
-                echo "Connecting to daint"
-                sh 'ssh "jenscscs@daint" "echo $HOSTNAME"'
+                echo "Connecting to dom"
+                sh 'ssh "jenscscs@$MACH_RUNNER" "echo $HOSTNAME"'
             }
         }
     }
