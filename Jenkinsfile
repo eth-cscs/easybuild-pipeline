@@ -9,7 +9,7 @@ pipeline{
             steps{
                 sh "whoami"
                 sh "env"
-                sh "ssh jenscscs@${MACH_RUNNER}"    
+                sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
             }
               
             post{
@@ -30,7 +30,7 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                sh "ssh jenscscs@${MACH_RUNNER}"
+                sh "ssh ${LOGNAME}@${MACH_RUNNER}"
             }
         }
     }
