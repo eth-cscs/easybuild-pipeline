@@ -7,7 +7,7 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
-                sh "ssh jenscscs@${MACH_RUNNER} pwd"    
+                sh "ssh jenscscs@${MACH_RUNNER}"    
             }
               
             post{
@@ -28,8 +28,7 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                echo "Connecting to ${MACH_RUNNER}"
-                sh "ssh jenscscs@${MACH_RUNNER} pwd"
+                sh "ssh jenscscs@${MACH_RUNNER}"
             }
         }
     }
