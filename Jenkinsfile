@@ -7,8 +7,8 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                echo "Connecting to dom"
-                sh 'ssh "jenscscs@$MACH_RUNNER" "echo $HOSTNAME"'
+                echo "Connecting to $MACH_RUNNER"
+                sh 'ssh "jenscscs@$MACH_RUNNER"
             }
         }
     }
