@@ -8,7 +8,6 @@ pipeline{
             }
             steps{
                 sh "whoami"
-                sh "echo ${GIT_COMMIT}"
                 sh "env"
                 
                 sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
