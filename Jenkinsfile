@@ -8,7 +8,7 @@ pipeline{
             }
             steps{
                 sh "whoami"
-                sh "ssh jenscscs@${MACH_RUNNER}"    
+                sh "ssh jenkins@${MACH_RUNNER}"    
             }
               
             post{
@@ -29,7 +29,7 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                sh "ssh jenscscs@${MACH_RUNNER}"
+                sh "ssh jenkins@${MACH_RUNNER}"
             }
         }
     }
