@@ -9,7 +9,8 @@ pipeline{
             steps{
                 sh 'pwd'
                 echo "Connecting to $MACH_RUNNER"
-                sh 'ssh jenscscs@$MACH_RUNNER'        
+                sh 'ssh jenscscs@$MACH_RUNNER'      
+                sh 'logout'
             }
               
             post{
@@ -33,6 +34,7 @@ pipeline{
                 sh 'pwd'
                 echo "Connecting to $MACH_RUNNER"
                 sh 'ssh jenscscs@$MACH_RUNNER'
+                sh 'logout'
             }
         }
     }
