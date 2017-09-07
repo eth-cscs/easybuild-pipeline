@@ -9,8 +9,7 @@ pipeline{
             steps{
                 sh "whoami"
                 sh "env"
-                sh "export COMMIT=`git rev-parse --short HEAD`"
-                echo "${COMMIT}"
+                sh "export COMMIT=$(git rev-parse --short HEAD)"
                 sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
             }
               
