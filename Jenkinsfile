@@ -4,8 +4,8 @@ pipeline{
     stages{
         stage("Initializing"){
             steps{
-                echo "Initializing"
-                sh "bash ci-runner.sh"
+                echo "Connecting to dom"
+                sh 'ssh "jenscscs@dom; env"'
             }
         }
     }
