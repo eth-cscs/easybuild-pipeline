@@ -11,6 +11,17 @@ pipeline{
                 sh 'ssh jenscscs@$MACH_RUNNER "pwd"'
             }
         }
+        post{
+            success{
+                echo "Pipeline successfull on $MACH_RUNNER"
+            }
+            failure{
+                echo "Pipeline failed on $MACH_RUNNER"
+            }
+            always{
+                echo "Finished pipeline on $MACH_RUNNEr"
+            }
+        }
         
         stage("Pipeline on daint"){
             environment{
