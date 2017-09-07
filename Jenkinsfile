@@ -14,13 +14,13 @@ pipeline{
         
         post{
              always{
-                echo "Finished pipeline on $MACH_RUNNER"
+                echo "Finished pipeline on dom"
             }
             success{
-                echo "Pipeline successfull on $MACH_RUNNER"
+                echo "Pipeline successfull on dom"
             }
             failure{
-                echo "Pipeline failed on $MACH_RUNNER"
+                echo "Pipeline failed on dom"
             }        
         }
         
