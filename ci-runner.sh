@@ -6,7 +6,7 @@
 
 # hard-coded list of systems in project
 syslist="daint dom kesch leone monch"
-export COMMIT=`git rev-parse --short HEAD`
+
 echo ${COMMIT}
 # exit status
 status=0
