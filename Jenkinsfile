@@ -9,7 +9,7 @@ pipeline{
             steps{
                 sh "whoami"
                 sh "env"
-                
+                sh "bash ci-runner.sh"
                 sh "ssh ${LOGNAME}@${MACH_RUNNER}"    
             }
               
