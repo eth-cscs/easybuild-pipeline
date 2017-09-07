@@ -5,7 +5,7 @@ pipeline{
         stage("Pipeline on daint"){
             environment{
                 MACH_RUNNER = "daint"
-                GIT_COMMIT = env.GIT_COMMIT
+                GIT_COMMIT = credentials("GIT_COMMIT")
             }
             steps{
                 sh "whoami"
