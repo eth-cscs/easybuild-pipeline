@@ -4,7 +4,7 @@ pipeline{
     stages{
         stage("Pipeline on daint"){
             environment{
-                MACH_RUNNER = "daint"
+                MACH_RUNNER = "daint.cscs.ch"
             }
             steps{
                 sh "whoami"
