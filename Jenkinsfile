@@ -31,8 +31,8 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                echo "Connecting to ${MACH_RUNNER}"
-                sh "ssh jenscscs@${MACH_RUNNER} "pwd""
+                echo 'Connecting to ${MACH_RUNNER}'
+                sh 'ssh jenscscs@${MACH_RUNNER} "pwd"'
             }
         }
     }
