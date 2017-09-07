@@ -8,6 +8,7 @@ pipeline{
             }
             steps{
                 sh "whoami"
+                sh "env"
                 sh "ssh jenscscs@${MACH_RUNNER}"    
             }
               
