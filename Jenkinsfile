@@ -47,8 +47,8 @@ pipeline{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
                 echo "Inside dom stage"
                 script{
-                    println "Commit Hash: ${env.SHORT_COMMIT_HASH}"
-                    println "Short Hash: ${env.COMMIT_HASH}"
+                    println "Commit Hash: ${env.COMMIT_HASH}"
+                    println "Short Hash: ${env.SHORT_COMMIT_HASH}"
                 }
             }
         }
