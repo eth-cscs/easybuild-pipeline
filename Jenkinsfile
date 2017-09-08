@@ -18,7 +18,7 @@ pipeline{
                     //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
-                    //sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
+                    sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
                     //sh "env"
                 }
                 
