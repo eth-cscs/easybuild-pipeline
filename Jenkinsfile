@@ -16,8 +16,8 @@ pipeline{
                     sh "mkdir ${shortCommitHash}"
                     sh "ls"
                     sh "rmdir ${shortCommitHash}"
-                    sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
-                    sh "env"
+                    //sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
+                    //sh "env"
                 }
                 
                 //sh "git rev-parse --short HEAD"
@@ -44,6 +44,9 @@ pipeline{
             steps{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
                 echo "Inside dom stage"
+                script{
+                    println shortCommitHash
+                }
             }
         }
     }
