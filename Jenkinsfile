@@ -36,6 +36,7 @@ pipeline{
             }
             steps{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
+                echo "Inside dom stage"
             }
         }
     }
