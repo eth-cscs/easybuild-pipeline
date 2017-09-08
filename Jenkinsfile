@@ -18,7 +18,7 @@ pipeline{
                     sh "rmdir ${shortCommitHash}"
                 }
                 
-                sh '"git rev-parse --short HEAD"'
+                sh "git rev-parse --short HEAD"
                 // sh "ssh -tt jencscs@${MACH_RUNNER}"    
             }
               
