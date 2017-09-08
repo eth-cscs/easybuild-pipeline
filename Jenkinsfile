@@ -16,6 +16,7 @@ pipeline{
                     sh "mkdir ${shortCommitHash}"
                     sh "ls"
                     sh "rmdir ${shortCommitHash}"
+                    env.SHORT_COMMIT_HASH = shortCommitHash
                     //sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
                     //sh "env"
                 }
@@ -45,7 +46,7 @@ pipeline{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
                 echo "Inside dom stage"
                 script{
-                    println shortCommitHash
+                    println env.SHORT_COMMIT_HASH
                 }
             }
         }
