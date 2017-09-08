@@ -9,17 +9,12 @@ pipeline{
             steps{
                 script{
                     def scmVars = checkout scm
-                    def commitHash = scmVars.GIT_COMMIT
-
-                    
+                    def commitHash = scmVars.GIT_COMMIT    
                     println commitHash
-                    println scmVars
                 }
                 
-                sh "whoami"
-                sh "env"
-                sh "export COMMIT=`git rev-parse --short HEAD`"
-                sh "ssh -tt jencscs@${MACH_RUNNER}"    
+                sh '"git rev-parse --short HEAD"'
+                // sh "ssh -tt jencscs@${MACH_RUNNER}"    
             }
               
             post{
@@ -40,7 +35,7 @@ pipeline{
                 MACH_RUNNER = "dom"
             }
             steps{
-                sh "ssh ${LOGNAME}@${MACH_RUNNER}"
+                // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
             }
         }
     }
