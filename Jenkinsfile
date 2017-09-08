@@ -16,9 +16,10 @@ pipeline{
                     sh "mkdir ${shortCommitHash}"
                     sh "ls"
                     sh "rmdir ${shortCommitHash}"
+                    println env.SCRATCH
                 }
                 
-                sh "git rev-parse --short HEAD"
+                //sh "git rev-parse --short HEAD"
                 // sh "ssh -tt jencscs@${MACH_RUNNER}"    
             }
               
