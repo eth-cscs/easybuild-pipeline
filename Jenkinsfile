@@ -7,6 +7,16 @@ pipeline{
                 MACH_RUNNER = "daint"
             }
             steps{
+                script{
+                    def scmVars = checkout scm
+                    def commitHash = scmVars.GIT_COMMIT
+
+                    def commitHash = checkout(scm).GIT_COMMIT
+                    
+                    println commitHash
+                    println scmVars
+                }
+                
                 sh "whoami"
                 sh "env"
                 sh "export COMMIT=`git rev-parse --short HEAD`"
