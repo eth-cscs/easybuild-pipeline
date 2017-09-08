@@ -16,7 +16,7 @@ pipeline{
                     sh "mkdir ${shortCommitHash}"
                     sh "ls"
                     sh "rmdir ${shortCommitHash}"
-                    println env
+                    sh "env"
                 }
                 
                 //sh "git rev-parse --short HEAD"
