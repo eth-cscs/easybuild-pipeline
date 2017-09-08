@@ -11,12 +11,13 @@ pipeline{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
                     def shortCommitHash = commitHash[0..6]
-                    println commitHash
-                    println shortCommitHash
-                    sh "mkdir ${shortCommitHash}"
-                    sh "ls"
-                    sh "rmdir ${shortCommitHash}"
+                    //println commitHash
+                    //println shortCommitHash
+                    // sh "mkdir ${shortCommitHash}"
+                    //sh "ls"
+                    //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
+                    env.COMMIT_HASH = commitHash
                     //sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
                     //sh "env"
                 }
@@ -46,7 +47,8 @@ pipeline{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
                 echo "Inside dom stage"
                 script{
-                    println env.SHORT_COMMIT_HASH
+                    println "Commit Hash: ${env.SHORT_COMMIT_HASH}"
+                    println "Short Hash: ${env.COMMIT_HASH}"
                 }
             }
         }
