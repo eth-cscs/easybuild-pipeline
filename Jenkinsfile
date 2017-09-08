@@ -11,14 +11,14 @@ pipeline{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
                     def shortCommitHash = commitHash[0..6]
-                    //println commitHash
-                    //println shortCommitHash
+                    println commitHash
+                    println shortCommitHash
                     // sh "mkdir ${shortCommitHash}"
                     //sh "ls"
                     //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
-                    sh "ssh -tt jencscs@${MACH_RUNNER} ls"    
+                    sh "ssh -vv jencscs@${MACH_RUNNER} ls"    
                     //sh "env"
                 }
                 
