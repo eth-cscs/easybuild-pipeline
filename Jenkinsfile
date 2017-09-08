@@ -9,8 +9,13 @@ pipeline{
             steps{
                 script{
                     def scmVars = checkout scm
-                    def commitHash = scmVars.GIT_COMMIT    
+                    def commitHash = scmVars.GIT_COMMIT   
+                    def shortCommitHash = commitHash[0..6]
                     println commitHash
+                    println shortCommitHash
+                    sh "mkdir ${shortCommitHash}"
+                    sh "ls"
+                    sh "rmdir ${shortCommitHash}"
                 }
                 
                 sh '"git rev-parse --short HEAD"'
