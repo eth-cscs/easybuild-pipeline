@@ -13,7 +13,10 @@ pipeline{
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
                     println shortCommitHash
-                    def hostname = env.HOST_NAME
+                    def hostname = env.HOST
+                    def username = env.USER
+                    println hostname
+                    println username
                     // sh "mkdir ${shortCommitHash}"
                     //sh "ls"
                     //sh "rmdir ${shortCommitHash}"
