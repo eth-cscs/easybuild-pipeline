@@ -5,6 +5,7 @@ pipeline{
         stage("Pipeline on daint"){
             environment{
                 MACH_RUNNER = "daint"
+                USER = "jenscscs"
             }
             steps{
                 script{
@@ -13,16 +14,16 @@ pipeline{
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
                     println shortCommitHash
-                    def hostname = env.HOST
+                    def homedir = env.HOME
                     def username = env.USER
-                    println hostname
+                    println homedir
                     println username
                     // sh "mkdir ${shortCommitHash}"
                     //sh "ls"
                     //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
-                    sh "ssh -vv ${hostname}@${MACH_RUNNER} ls"    
+                    sh "ssh -vv ${USER}@${MACH_RUNNER} ls"    
                     //sh "env"
                 }
                 
