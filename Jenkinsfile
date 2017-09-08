@@ -11,7 +11,6 @@ pipeline{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT
 
-                    def commitHash = checkout(scm).GIT_COMMIT
                     
                     println commitHash
                     println scmVars
