@@ -14,6 +14,7 @@ pipeline{
                     def scmVars = checkout scm
                     println("Hello")
                     println("Jenkins")
+                    println("Cscs")
                     def commitHash = scmVars.GIT_COMMIT   
                     def pullRequestMessage = env.ghprbPullTitle
                     println("-----------------------------")
