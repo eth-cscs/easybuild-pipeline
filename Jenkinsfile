@@ -14,9 +14,9 @@ pipeline{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
                     def pullRequestMessage = env.ghprbPullTitle
-                    println("----------------------------")
+                    println("-----------------------------")
                     println(pullRequestMessage)
-                    println("----------------------------")                   
+                    println("-----------------------------")                   
                     def shortCommitHash = commitHash[0..6]
                     def username = env.USER
                     println "Home directory: " + homedir
