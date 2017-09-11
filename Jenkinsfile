@@ -13,13 +13,7 @@ pipeline{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
                     def pullRequestMessage = env.ghprbPullTitle
-                    for (i in scmVars)
-                    {
-                        println i
-                    }
-                    println pullRequestMessage
-                    def containsDom = pullRequestMessage.indexof('U') 
-                    println(containsDom)
+                    println(pullRequestMessage)
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
                     println shortCommitHash
@@ -29,17 +23,9 @@ pipeline{
                     println "Home directory: " + homedir
                     println "User name: : " + username
                     sh "hostname"
-                    // sh "mkdir ${shortCommitHash}"
-                    //sh "ls"
-                    //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
-                    sh "ssh -vv ${USER}@${MACH_RUNNER} ls"    
-                    //sh "env"
-                }
-                
-                //sh "git rev-parse --short HEAD"
-               
+                } 
             }
               
             post{
