@@ -18,11 +18,7 @@ pipeline{
                     println(pullRequestMessage)
                     println("----------------------------")                   
                     def shortCommitHash = commitHash[0..6]
-                    println commitHash
-                    println shortCommitHash
-                    def homedir = env.HOME
                     def username = env.USER
-                    println "Host name: " + env.HOSTNAME
                     println "Home directory: " + homedir
                     println "User name: : " + username
                     sh "hostname"
