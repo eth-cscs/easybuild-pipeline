@@ -12,6 +12,7 @@ pipeline{
                 script{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
+                    sh 'echo "$ghprbPullTitle"'
                     for (i in scmVars)
                     {
                         println i
