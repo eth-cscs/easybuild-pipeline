@@ -26,6 +26,7 @@ pipeline{
                     sh "hostname"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
+                    println "Finishind script stage of daint"
                 } 
             }
               
