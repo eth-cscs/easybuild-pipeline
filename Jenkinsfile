@@ -19,6 +19,7 @@ pipeline{
                     println "Host name: " + env.HOSTNAME
                     println "Home directory: " + homedir
                     println "User name: : " + username
+                    sh "hostname"
                     // sh "mkdir ${shortCommitHash}"
                     //sh "ls"
                     //sh "rmdir ${shortCommitHash}"
