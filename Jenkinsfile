@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent { label 'daint' }
     
     stages{
         stage("Pipeline on daint"){
