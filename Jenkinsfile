@@ -16,6 +16,7 @@ pipeline{
                     println shortCommitHash
                     def homedir = env.HOME
                     def username = env.USER
+                    println "Host name: " + env.HOSTNAME
                     println "Home directory: " + homedir
                     println "User name: : " + username
                     // sh "mkdir ${shortCommitHash}"
