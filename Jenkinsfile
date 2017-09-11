@@ -3,6 +3,7 @@ pipeline{
     
     stages{
         stage("Pipeline on daint"){
+            agent { label 'daint' }
             environment{
                 MACH_RUNNER = "daint"
                 USER = "jenscscs"
@@ -13,8 +14,6 @@ pipeline{
                     def commitHash = scmVars.GIT_COMMIT   
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
-                    println "${ghprbPullTitle}"
-                    println "${ghprbPullTitle}"
                     println shortCommitHash
                     def homedir = env.HOME
                     def username = env.USER
@@ -49,6 +48,7 @@ pipeline{
         }
         
         stage("Pipeline on dom"){
+            agent { label 'dom' }
             environment{
                 MACH_RUNNER = "dom"
             }
@@ -56,6 +56,7 @@ pipeline{
                 // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
                 echo "Inside dom stage"
                 script{
+                    println env.HOSTNAME
                     println "Commit Hash: ${env.COMMIT_HASH}"
                     println "Short Hash: ${env.SHORT_COMMIT_HASH}"
                 }
