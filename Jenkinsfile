@@ -13,7 +13,7 @@ pipeline{
                     def commitHash = scmVars.GIT_COMMIT   
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
-                    println "${ghprbPullTitle}"
+                    println "${env.ghprbPullTitle}"
                     println shortCommitHash
                     def homedir = env.HOME
                     def username = env.USER
