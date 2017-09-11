@@ -7,7 +7,7 @@ pipeline{
             environment{
                 MACH_RUNNER = "daint"
                 
-                USER = "jenscscs"
+                
             }
             steps{
                 script{
