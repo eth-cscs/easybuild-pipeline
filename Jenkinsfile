@@ -1,75 +1,172 @@
-pipeline{
-    agent { label 'daint' }
+#!/usr/bin/env groovy
+
+/*
+enum Machine {
+    DOM("dom"),
+    DAINT("daint")
+
+    private final name
+
+    Machine(String machineName) {
+        name = machineName
+    }
     
-    stages{
-        stage("Pipeline on daint"){
-            agent { label 'daint' }
-            environment{
-                MACH_RUNNER = "daint"
-                USER = "jenscscs"
-            }
-            steps{
-                script{
+    String toString() {
+        return name
+    }
+}
+*/
+
+enum MachineConfiguration {
+    MC("mc"),
+    GPU("gpu"),
+    BOTH("gpu mc")
+    
+    private final configuration
+
+    MachineConfiguration(String conf) {
+        configuration = conf
+    }
+
+    String toString() {
+        return configuration
+    }
+}
+
+MachineConfiguration getMachineConfiguration(String message, String machine) {
+    def machinePattern = ".*${machine}.*"
+    def machineGPU = ".*${machine}-gpu.*"
+    def machineMC = ".*${machine}-mc.*"
+
+    if (message ==~ machineGPU) {
+        if (message ==~ machineMC) {
+            return MachineConfiguration.BOTH
+        }
+        else {
+            return MachineConfiguration.GPU
+        }
+    }
+    else if (message ==~ machineMC) {
+        return MachineCongiguration.MC
+    }
+     
+    return MachineConfiguration.BOTH
+}
+
+boolean machineCheck(String message, String machine) {
+    def machinePattern = ".*${machine}.*"
+    
+    return message ==~ machinePattern? true : false 
+}
+
+boolean checkWorkInProgress(String message) {
+    if (message ==~ /.*WIP.*/) {
+        return true
+    }
+    
+    return false
+}
+
+
+/*-------------------------------------------------------------------
+------------------------- STAGES ------------------------------------ 
+-------------------------------------------------------------------*/
+
+def builds = [:]
+
+stage("Initialization") {
+    if (checkWorkInProgress(env.ghprbPullTitle)) {
+        println "Work in progress, aborting..."
+        return 
+    }
+}
+
+def machineList = ["dom", "daint", "leone", "kesch", "monch"]
+
+stage("Testing") {
+    for (m in machineList) {
+        def machine = m 
+        def pullRequestMessage = env.ghprbPullTitle
+        def runForMachine = machineCheck(pullRequestMessage, machine)
+
+        if (runForMachine) {
+            println "Machine ${machine} is added to stage"
+
+            builds[machine] = {
+                node(machine) {
+                    println "Hello from machine ${machine}"     
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
-                    for (i in scmVars)
-                    {
-                        println i
+                    def project_name = env.JOB_BASE_NAME.trim() 
+                    
+                    /*------------------------- SYSTEM SPECIFIC SETUP --------------------------
+                     * look within the production script for additional system specific setup */
+    
+                    def command = ""
+                    def unuse_path = ""
+                    def arch_list = ""
+                    switch (machine) {
+                        case 'daint':
+                            command = "srun -u --constraint=ARCH --job-name=${project_name} --time=24:00:00"
+                            unuse_path = "$APPS/UES/jenkins/6.0.UP02/ARCH/easybuild/modules/all"
+                            arch_list = getMachineConfiguration(pullRequestMessage, machine).toString() 
+                            break
+                        case 'dom':
+                            command = "srun -u --constraint=ARCH --job-name=${project_name} --time=24:00:00"
+                            unuse_path = "$APPS/UES/jenkins/6.0.UP04/ARCH/easybuild/modules/all"
+                            arch_list = getMachineConfiguration(pullRequestMessage, machine).toString() 
+                            break
+                        case 'kesch':
+                            unuse_path = "$APPS/UES/RH7.3_PE17.02/modules/all/"
+                            break
+                        case 'leone':
+                            unuse_path = "$APPS/UES/PrgEnv-gnu-2016b"
+                            break
+                        case 'monch':
+                            unuse_path = "$APPS/UES/jenkins/RH6.9-17.06/easybuild/modules/all/"
+                            break
+                        default:
+                            break
                     }
-                    def shortCommitHash = commitHash[0..6]
-                    println commitHash
-                    println shortCommitHash
-                    def homedir = env.HOME
-                    def username = env.USER
-                    println "Host name: " + env.HOSTNAME
-                    println "Home directory: " + homedir
-                    println "User name: : " + username
-                    sh "hostname"
-                    // sh "mkdir ${shortCommitHash}"
-                    //sh "ls"
-                    //sh "rmdir ${shortCommitHash}"
-                    env.SHORT_COMMIT_HASH = shortCommitHash
-                    env.COMMIT_HASH = commitHash
-                    sh "ssh -vv ${USER}@${MACH_RUNNER} ls"    
-                    //sh "env"
-                }
-                
-                //sh "git rev-parse --short HEAD"
-               
-            }
-              
-            post{
-                always{
-                    echo "Finished pipeline on ${MACH_RUNNER}"
-                }
-                success{
-                    echo "Pipeline successfull on ${MACH_RUNNER}"
-                }
-                failure{
-                    echo "Pipeline failed on ${MACH_RUNNER}"
-                }        
-            }
-        }
-        
-        stage("Pipeline on dom"){
-            agent { label 'dom' }
-            environment{
-                MACH_RUNNER = "dom"
-            }
-            steps{
-                // sh "ssh ${LOGNAME}@${MACH_RUNNER}"
-                echo "Inside dom stage"
-                script{
-                    println env.HOSTNAME
-                    println "Commit Hash: ${env.COMMIT_HASH}"
-                    println "Short Hash: ${env.SHORT_COMMIT_HASH}"
+    
+                    withEnv(["GIT_COMMIT=${commitHash[0..6]}",
+                             "MACHINE=${machine}",
+                             "command=${command}",
+                             "unuse_path=${unuse_path}",
+                             "arch_list=${arch_list}",
+                             "project_name=${project_name}"]) {
+    
+                        sh '''system=${HOSTNAME%%[0-9]*}
+                              PREFIX="$SCRATCH/${project_name}"
+                              EASYBUILD_TMPDIR=${PREFIX}/tmp
+                              EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
+                              status=0
+    
+                              if [ -d $PREFIX ]; then
+                                  rm -rf $PREFIX/*
+                              else 
+                                  mkdir $PREFIX
+                              fi
+    
+                              offlist="a/Amber c/CPMD n/NAMD n/NCL u/UDUNITS v/VASP v/Visit"
+                              pushd $HOME
+                              for item in ${offlist}; do 
+                                  cp --parents -r sources/$item $PREFIX
+                              done
+                              popd
+                              
+                              for arch in $arch_list; do
+                                  echo "Running for architecture: $arch"
+                              done
+                              exit ${status}
+                        '''
+                    }
                 }
             }
+        }   
+        else {
+            println "Machine ${machine} was not added to stage"
         }
     }
-    post { 
-        always { 
-            echo "Finish execution of pipeline"
-        }
-    }
+    parallel builds
 }
