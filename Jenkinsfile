@@ -17,6 +17,7 @@ pipeline{
                     {
                         println i
                     }
+                    println pullRequestMessage
                     def containsDom = pullRequestMessage.indexof('U') 
                     println(containsDom)
                     def shortCommitHash = commitHash[0..6]
