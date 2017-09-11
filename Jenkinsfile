@@ -12,6 +12,7 @@ pipeline{
                 script{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
+                    println scmVars
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
                     println shortCommitHash
