@@ -12,11 +12,12 @@ pipeline{
                 script{
                     def scmVars = checkout scm
                     def commitHash = scmVars.GIT_COMMIT   
-                    println env.ghprbPullTitle
+                    def pullRequestMessage = env.ghprbPullTitle
                     for (i in scmVars)
                     {
                         println i
                     }
+                    println pullRequestMessage.contains('[dom') 
                     def shortCommitHash = commitHash[0..6]
                     println commitHash
                     println shortCommitHash
