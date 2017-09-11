@@ -6,6 +6,7 @@ pipeline{
             agent { label 'daint' }
             environment{
                 MACH_RUNNER = "daint"
+                
                 USER = "jenscscs"
             }
             steps{
