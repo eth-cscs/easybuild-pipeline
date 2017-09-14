@@ -6,38 +6,30 @@ pipeline{
             agent { label 'daint' }
             environment{
                 MACH_RUNNER = "daint"
-                USER = "jenscscs"
+                
+                
             }
             steps{
                 script{
                     def scmVars = checkout scm
+                    println("Hello")
+                    println("Jenkins")
+                    println("Cscs")
                     def commitHash = scmVars.GIT_COMMIT   
-                    sh 'echo "$ghprbPullTitle"'
-                    for (i in scmVars)
-                    {
-                        println i
-                    }
+                    def pullRequestMessage = env.ghprbPullTitle
+                    println("-----------------------------")
+                    println(pullRequestMessage)
+                    println("-----------------------------")                   
                     def shortCommitHash = commitHash[0..6]
-                    println commitHash
-                    println shortCommitHash
-                    def homedir = env.HOME
                     def username = env.USER
-                    
+         
                     println "Host name: " + env.HOSTNAME
-                    println "Home directory: " + homedir
                     println "User name: : " + username
                     sh "hostname"
-                    // sh "mkdir ${shortCommitHash}"
-                    //sh "ls"
-                    //sh "rmdir ${shortCommitHash}"
                     env.SHORT_COMMIT_HASH = shortCommitHash
                     env.COMMIT_HASH = commitHash
-                    sh "ssh -vv ${USER}@${MACH_RUNNER} ls"    
-                    //sh "env"
-                }
-                
-                //sh "git rev-parse --short HEAD"
-               
+                    println "Finishind script stage of daint"
+                } 
             }
               
             post{
