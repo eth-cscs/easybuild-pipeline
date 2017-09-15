@@ -29,6 +29,12 @@ pipeline{
                           mkdir $PREFIX
                       fi
                       status=0
+                      offlist="a/Amber c/CPMD n/NAMD n/NCL u/UDUNITS v/VASP v/Visit"
+                      pushd $HOME
+                      for item in ${offlist}; do 
+                          cp --parents -r sources/$item $PREFIX
+                      done
+                      popd
                       if [[ ${ghprbPullTitle,,} =~ "dom-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "dom-mc" ]]; then
                               echo "Running dom-mc"
