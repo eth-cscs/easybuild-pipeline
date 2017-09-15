@@ -95,6 +95,7 @@ pipeline{
                       elif [[ ${ghprbPullTitle,,} =~ "daint" ]]; then
                           echo "Running in both daint-mc and daint-gpu"
                       fi
+                      exit 1
                 '''
                 
             }
