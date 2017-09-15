@@ -16,7 +16,13 @@ pipeline{
                 } 
  
                 sh '''project_name=${JOB_NAME%/*}
-                      echo $project_name
+                      system=${HOSTNAME%%[0-9]*}
+                      PREFIX="$SCRATCH/${project_name}"
+                      EASYBUILD_TMPDIR=${PREFIX}/tmp
+                      EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
+                      echo $PREFIX
+                      echo $EASY_BUILD_TMPDOR
+                      echo $EASY_BUILD_SOURCEPATH
                       status=0
                       if [[ ${ghprbPullTitle,,} =~ "dom-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "dom-mc" ]]; then
@@ -59,7 +65,13 @@ pipeline{
                 } 
  
                 sh '''project_name=${JOB_NAME%/*}
-                      echo $project_name
+                      system=${HOSTNAME%%[0-9]*}
+                      PREFIX="$SCRATCH/${project_name}"
+                      EASYBUILD_TMPDIR=${PREFIX}/tmp
+                      EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
+                      echo $PREFIX
+                      echo $EASY_BUILD_TMPDOR
+                      echo $EASY_BUILD_SOURCEPATH
                       status=0
                       if [[ ${ghprbPullTitle,,} =~ "daint-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "daint-mc" ]]; then
