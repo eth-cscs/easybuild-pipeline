@@ -21,8 +21,8 @@ pipeline{
                       EASYBUILD_TMPDIR=${PREFIX}/tmp
                       EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
                       echo $PREFIX
-                      echo $EASY_BUILD_TMPDOR
-                      echo $EASY_BUILD_SOURCEPATH
+                      echo $EASYBUILD_TMPDIR
+                      echo $EASYBUILD_SOURCEPATH
                       status=0
                       if [[ ${ghprbPullTitle,,} =~ "dom-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "dom-mc" ]]; then
@@ -70,8 +70,9 @@ pipeline{
                       EASYBUILD_TMPDIR=${PREFIX}/tmp
                       EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
                       echo $PREFIX
-                      echo $EASY_BUILD_TMPDOR
-                      echo $EASY_BUILD_SOURCEPATH
+                      echo $EASYBUILD_TMPDIR
+                      echo $EASYBUILD_SOURCEPATH
+
                       status=0
                       if [[ ${ghprbPullTitle,,} =~ "daint-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "daint-mc" ]]; then
