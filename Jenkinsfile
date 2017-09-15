@@ -23,6 +23,11 @@ pipeline{
                       echo $PREFIX
                       echo $EASYBUILD_TMPDIR
                       echo $EASYBUILD_SOURCEPATH
+                      if [ -d $PREFIX ]; then
+                          rm -rf $PREFIX/*
+                      else
+                          mkdir $PREFIX
+                      fi
                       status=0
                       if [[ ${ghprbPullTitle,,} =~ "dom-" ]]; then
                           if [[ ${ghprbPullTitle,,} =~ "dom-mc" ]]; then
