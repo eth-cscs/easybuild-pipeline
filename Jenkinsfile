@@ -81,7 +81,7 @@ stage("Initialization") {
     }
 }
 
-def machineList = ["dom", "daint", "leone", "kesch", "monch"]
+def machineList = ["dom"] //, "daint", "leone", "kesch", "monch"]
 
 stage("Testing") {
     for (m in machineList) {
@@ -130,14 +130,13 @@ stage("Testing") {
                     }
     
                     withEnv(["GIT_COMMIT=${commitHash[0..6]}",
-                             "MACHINE=${machine}",
+                             "system=${machine}",
                              "command=${command}",
                              "unuse_path=${unuse_path}",
                              "arch_list=${arch_list}",
                              "project_name=${project_name}"]) {
-    
-                        sh '''system=${HOSTNAME%%[0-9]*}
-                              PREFIX="$SCRATCH/${project_name}"
+
+                        sh '''PREFIX="$SCRATCH/${project_name}"
                               EASYBUILD_TMPDIR=${PREFIX}/tmp
                               EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
                               status=0
@@ -153,11 +152,24 @@ stage("Testing") {
                               for item in ${offlist}; do 
                                   cp --parents -r sources/$item $PREFIX
                               done
-                              popd
-                              
-                              for arch in $arch_list; do
-                                  echo "Running for architecture: $arch"
-                              done
+                         
+                              pwd
+                              ls -l
+
+
+                              # --- BUILD ---
+                              if [[ "$system" =~ "daint" || "$system" =~ "dom" ]]; then
+                                  arch_list="gpu"
+                                  for ARCH in ${arch_list}; do
+                                      linkname="${system}-${ARCH}"
+                                      ${command/ARCH/$ARCH} $PWD/jenkins-builds/production.sh --arch=$ARCH --list=$PWD/jenkins-builds/${linkname} --prefix=${PREFIX}/${ARCH} --unuse=${unuse_path/ARCH/$ARCH} --xalt=no
+                                      status=$[status+$?]
+                                  done
+                              else
+                                  linkname=${system}
+                                  $command $PWD/jenkins-builds/production.sh --list=$PWD/jenkins-builds/${linkname} --prefix=$PREFIX --unuse=${unuse_path}
+                                  status=$[status+$?]
+                              fi 
                               exit ${status}
                         '''
                     }
