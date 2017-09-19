@@ -158,16 +158,17 @@ stage("Testing") {
 
 
                               # --- BUILD ---
+                              production_dir=/apps/common/UES/jenkins/production
                               if [[ "$system" =~ "daint" || "$system" =~ "dom" ]]; then
                                   for ARCH in ${arch_list}; do
                                       linkname="${system}-${ARCH}"
-                                      #${command/ARCH/$ARCH} $PWD/jenkins-builds/production.sh --arch=$ARCH --list=$PWD/jenkins-builds/${linkname} --prefix=${PREFIX}/${ARCH} --unuse=${unuse_path/ARCH/$ARCH} --xalt=no
+                                      ${command/ARCH/$ARCH} $production_dir/jenkins-builds/production.sh --arch=$ARCH --list=$production_dir/jenkins-builds/${linkname} --prefix=${PREFIX}/${ARCH} --unuse=${unuse_path/ARCH/$ARCH} --xalt=no
                                       status=$[status+$?]
                                       echo $linkname
                                   done
                               else
                                   linkname=${system}
-                                  #$command $PWD/jenkins-builds/production.sh --list=$PWD/jenkins-builds/${linkname} --prefix=$PREFIX --unuse=${unuse_path}
+                                  $command $production_dir/jenkins-builds/production.sh --list=$production_dir/jenkins-builds/${linkname} --prefix=$PREFIX --unuse=${unuse_path}
                                   status=$[status+$?]
                                   echo $linkname
                               fi 
