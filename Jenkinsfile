@@ -136,7 +136,8 @@ stage("Testing") {
                              "arch_list=${arch_list}",
                              "project_name=${project_name}"]) {
 
-                        sh '''PREFIX="$SCRATCH/${project_name}"
+                        sh '''#!/bin/bash -l
+                              PREFIX="$SCRATCH/${project_name}"
                               EASYBUILD_TMPDIR=${PREFIX}/tmp
                               EASYBUILD_SOURCE_PATH=${PREFIX}/sources 
                               status=0
