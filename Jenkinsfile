@@ -159,16 +159,17 @@ stage("Testing") {
 
                               # --- BUILD ---
                               if [[ "$system" =~ "daint" || "$system" =~ "dom" ]]; then
-                                  arch_list="gpu"
                                   for ARCH in ${arch_list}; do
                                       linkname="${system}-${ARCH}"
-                                      ${command/ARCH/$ARCH} $PWD/jenkins-builds/production.sh --arch=$ARCH --list=$PWD/jenkins-builds/${linkname} --prefix=${PREFIX}/${ARCH} --unuse=${unuse_path/ARCH/$ARCH} --xalt=no
+                                      #${command/ARCH/$ARCH} $PWD/jenkins-builds/production.sh --arch=$ARCH --list=$PWD/jenkins-builds/${linkname} --prefix=${PREFIX}/${ARCH} --unuse=${unuse_path/ARCH/$ARCH} --xalt=no
                                       status=$[status+$?]
+                                      echo $linkname
                                   done
                               else
                                   linkname=${system}
-                                  $command $PWD/jenkins-builds/production.sh --list=$PWD/jenkins-builds/${linkname} --prefix=$PREFIX --unuse=${unuse_path}
+                                  #$command $PWD/jenkins-builds/production.sh --list=$PWD/jenkins-builds/${linkname} --prefix=$PREFIX --unuse=${unuse_path}
                                   status=$[status+$?]
+                                  echo $linkname
                               fi 
                               exit ${status}
                         '''
